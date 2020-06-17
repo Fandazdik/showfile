@@ -59,17 +59,14 @@ SOME_LOCATION {
 }
 ```
 Originally the semicolons were originally commas, but commas in the middle of action lines would divide them into two.
-## Action lines
-These are very basic, you can describe an event or action in plain text using character abbreviations if applicable.
-```
-A goes to the loo;
-M finds a peach cobbler on the floor;
-Qn wins RuPaul's Drag Race Season 28;
-```
-They all must end in a semicolon if they are individual.
+
+
 
 ## `details {*show_details*}`
-It is recommended  to include a dictionary named `details` with information about the show. They will usually include `show`,  `episode`, `season`, and `name`, but this is not required.
+
+A dictionary that outlines details of the episode.
+
+It is recommended to include `show`,  `episode`, `season`, and `name`, but this is not required.
 
 *Please note that dates can be arranged in any order given that day, month, and year should be prefaced with D, M, and Y respectively.*
 ```
@@ -84,31 +81,84 @@ details {
 } 
 ```
 ## `chars {*char_details*}`
+
+A  dictionary to abbreviate the names of any characters in the show.
+
 *(To avoid confusion, **Char** will refer to a single symbol character, and **Character** will refer to a show character.)*
 
-In order to save up on space, a `chars` dictionary should be included to abbreviate the names of any characters in the show.
-
-Commonly an uppercase char (e.g. A, Q) is used to denote main characters,  but there may be a few issues with this (see below).
+The uppercase initial should be used to denote the characters's names where possible:
+`S: Sandy Cheeks; H: Haru ; O: Olaf; W: Winnie the Pooh`
+However, there may be a few issues with this (see below).
 ### Naming issues
 #### Overlap
-In the case of the characters sharing a char, another lowercase inital may be used.
+When two characters share the same initial, another lowercase char may be added, or an alternative char may be used. 
 ```
+// Adding another character
 chars {
-	Sc: Sonic the Hedgehog;
-	Sq: Sonique Hart;
-	
-	Sfm: Sheriff Mao Mao;
+	Sc: Sonic (the Hedgehog);
+	Sq: Sonique (Hart);
+	Shfm: Sheriff Mao Mao;
 	Spm: Super Mario;
 }
 ```
-*Please note that although this is to save space, abbreviations should still be readable.
-As such, abbreviating* `Sherrif Mao Mao` *to* `Sh` *would be a little unfavourable compared to* `Sfm`.
+*Please note that although saving space is optimal, abbreviations should still be readable.
+As such, abbreviating* `Sherrif Mao Mao` *to* `Sh` *would be unfavorable compared to* `Shfm`.
+```
+// Using alternative letter
+chars {
+	K: King;
+	N: Knight;
+}
+```
 
 #### Unknown Characters
-When encountering characters who do not have a name, or are not well known enough in the scope of the episode, they should be represented by `Ch0`, `Ch1`, `Ch2` etc., along with a description of their role.
+When encountering characters significant to the plot, but do not have a name or are not well known enough in the scope of the episode, they should be represented by `Ch0`, `Ch1`, `Ch2` etc., along with a description of their role.
 ```
 chars {
-	F: foo;
-	B:
+	F: Foo;
+	Br: Bar;
+	Bz: Baz;
+
+	Ch0: Fox who follows Br;
+	Ch1: Person behind F in hospital line;
+	Ch2: Friend of Ch1;
+}
 ```
+Preferably they should be in order of appearance for readability but this is not necessary.
+## Action lines
+These are very basic, you can describe an event or action in plain text using character abbreviations if / where applicable.
+When referring to two or more characters, put all of the abbreviated chars together.
+```
+A goes to the loo;
+M finds a peach cobbler on the floor;
+GDw put on aluminium hats;
+```
+*Please note that `GDw` refers to characters `G` and `Dw`. The addition of new lowercase chars referring to one character still applies with this rule.*
+
 ## `location (*details*) {*actions*}`
+A function that describes the current location of the scene.
+
+Where applicable, any extra details about the scene should be placed inside the `(details)` brackets separated by commas.
+
+```
+PARK (panning as AB run) {
+	A is sweating and chasing after B;
+	B taunts A;
+	AB continue to run across the park;
+}
+```
+
+```
+SCHOOL_HALLWAY (in front of lockers, day, 14:00) {
+	G criticises D for being manipulative;
+	D criticises G for being a pushover;
+	GD continue to bicker;
+}
+```
+## `voiceover (*details*) {*actions*}`
+Simple function to describe a voiceover or narration.
+```
+voiceover {
+	N talks to B about carrots;
+}
+```
